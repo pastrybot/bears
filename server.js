@@ -1,12 +1,32 @@
 //Require the dependencies
 
-var http = require('http');
+var express = require('express');
+var bodyParser = require('body-parser');
 
-http.createServer(function(req, res){
-  res.writeHead(200, {'Content-Type':'text/plain'});
-  res.end("Hello World! I am Sharknado!");
+var app = express();
+//lets us read post data
+app.use(bodyParser.urlencoded({ extended:true}));
+app.use(bodyParser.json());
+
+app.get('/', function (req, res) {
+  res.send("Hola Mundo, yo soy Sharknado!");
+
+});
+
+app.get('/api/greeting', function (req, res) {
+  res.send('hello, welcome to the greeting API');
+});
+
+app.post('/api/greeting', function(req, res){
+  var name = req.body.name;
+  var greeting = req.body.greeting;
+  res.json({name: name, greeting: greeting});
+});
+app.get('/api/greeting/:name', function(req, res){
+  res.send("Hello, " + req.params.name);
+});
 
 
-}).listen(3000);
+app.listen(3000);
 
 console.log('Server started on port 3000')
