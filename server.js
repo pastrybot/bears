@@ -4,20 +4,42 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var Bear = require('./models/bears')
 var app = express();
+// use the EJS templates to make user interface
+app.set('view engine', 'ejs');
+
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/animals');
 //lets us read post data
 app.use(bodyParser.urlencoded({ extended:true}));
 app.use(bodyParser.json());
+//serve our static html, css, js
+app.use(express.static('public'));
 
 app.get('/', function (req, res) {
-  res.send("Hola Mundo, yo soy Sharknado!");
+    res.render('index', {welcome:"Hola Mundo, yo soy Sharknado!"});
 
 });
+
+app.get('/loop', function (req, res) {
+    res.render('loop', {welcome:"Hola Mundo, yo soy Sharknado!", num: 50});
+  });
 
 app.get('/api/greeting', function (req, res) {
   res.send('hello, welcome to the greeting API');
 });
+
+app.get('/bears', function(req, res){
+    Bear.find(function (err, bears){
+      if(err){
+        console.log("You are stupid");
+      } else{
+        res.render('bears', {welcome: "Welcome to The World of Bears", bears: bears})
+        }
+      });
+
+  })
+
+
 
 app.post('/api/greeting', function(req, res){
   var name = req.body.name;

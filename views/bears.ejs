@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <meta charset="utf-8">
+    <title>Welcome to EJS</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="jumbotron">
+        <h2><%= welcome %> </h2>
+      </div>
+      <form id="newBear" class="form-inline">
+          <div class="form-group">
+            <input type="text" id="species" placeholder="Bear Species"/>
+            <input type="text" id="age" placeholder="Bear Age"/>
+            <input type="text" id="name" placeholder="Bear Name"/>
+            <input type="text" id="weight" placeholder="Bear Weight"/>
+            <input type="text" id="location" placeholder="Bear Location"/>
+            <input type="text" id="attitude" placeholder="Bear Attitude"/>
+            <input type="submit" id="subBear" class="btn btn-primary" value="Add"/>
+          </div>
+
+      </form>
+      <table class="table hover">
+        <thead>
+          <th>Species</th>
+          <th>Age</th>
+          <th>Name</th>
+          <th>Weight</th>
+          <th>Location</th>
+          <th>Attitude</th>
+        </thead>
+        <tbody>
+          <% for(var i = 0; i < bears.length; i++){ %>
+            <tr>
+              <td><%= bears[i].species %></td>
+              <td><%= bears[i].age %></td>
+              <td><%= bears[i].name %></td>
+              <td><%= bears[i].weight %></td>
+              <td><%= bears[i].location %></td>
+              <td><%= bears[i].attitude %></td>
+              <td><button id="<%= bears[i]._id %>" class="btn btn-primary delete-btn">Delete</button></td>
+              <td><button id="<%= bears[i]._id %>" class="btn btn-primary update-btn">Refresh</button></td>
+              </tr>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+
+  </body>
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="js/main.js"></script>
+</html>
